@@ -65,8 +65,8 @@ class _VimeoPlayerState extends State<VimeoPlayer> {
              <body>
                 <iframe 
                 src="https://player.vimeo.com/video/$videoId?loop=0&autoplay=0" 
-                width="100%" height="100%" frameborder="0" allow="fullscreen" 
-                allowfullscreen></iframe>
+                width="100%" height="100%" frameborder="0" 
+                ></iframe>
              </body>
             </html>
             ''';
