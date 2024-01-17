@@ -4,6 +4,8 @@ import 'dart:convert';
 
 import 'package:flutter/material.dart';
 import 'package:webview_flutter/webview_flutter.dart';
+import 'package:webview_flutter_wkwebview/webview_flutter_wkwebview.dart';
+
 
 ///vimeo player for Flutter apps
 ///Flutter plugin based on the [webview_flutter] plugin
@@ -25,11 +27,20 @@ class VimeoPlayer extends StatefulWidget {
 }
 
 class _VimeoPlayerState extends State<VimeoPlayer> {
-  final _controller = WebViewController();
+  WebViewController _controller = WebViewController();
+  late final PlatformWebViewControllerCreationParams params;
+
 
   @override
   void initState() {
-    _controller
+    if (WebViewPlatform.instance is WebKitWebViewPlatform) {
+      params = WebKitWebViewControllerCreationParams(
+        allowsInlineMediaPlayback: true,
+      );
+    } else {
+      params = const PlatformWebViewControllerCreationParams();
+    }
+    _controller = WebViewController.fromPlatformCreationParams(params)
       ..loadRequest(_videoPage(widget.videoId))
       ..setJavaScriptMode(JavaScriptMode.unrestricted);
     super.initState();
